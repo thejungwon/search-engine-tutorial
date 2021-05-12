@@ -30,9 +30,16 @@ mydb = mysql.connector.connect(
 
 
 def get_data(keyword):
-    #TODO
+    res = es.search(index=INDEX_NAME, q=keyword)
+    movie_ids = []
+    for data in res['hits']['hits']:
+        movie_ids.append(data["_id"])
+    sql = "SELECT * FROM movie WHERE id IN {}".format(tuple(movie_ids))
+    mycursor = mydb.cursor(dictionary=True)
+    mycursor.execute(sql)
 
-    res = []
+    query_result = []
+    myresult = mycursor.fetchall()
     for result in myresult:
         page = {
             "link":result["link"],
@@ -40,8 +47,8 @@ def get_data(keyword):
             "title":result["title"],
             "story":result["story"],
         }
-        res.append(page)
-    return res
+        query_result.append(page)
+    return query_result
 
 
 @app.route('/')
@@ -57,4 +64,4 @@ def search():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=6007, debug=True)
+    app.run(host="0.0.0.0", port=6006, debug=True)
