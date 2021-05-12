@@ -18,8 +18,8 @@ except:
     pass
 es = Elasticsearch()
 
-HOST = "root"
-USER = "admin"
+HOST = "localhost"
+USER = "root"
 PASSWORD = "123456789"
 mydb = mysql.connector.connect(
   host=HOST,
