@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <style>
+            p.address{
+                font-size: 8px !important;
+                padding-top: 1px;
+                line-height: 1.3;
+                color: #5f6368;
+                font-style: normal;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width:250px;
+                white-space: nowrap;
+                margin-bottom: 0 !important;
+            }
+            h5{
+                font-size: 20px !important;
+                line-height: 1.3;
+                color:#1a0dab;
+                margin-bottom: 0px;
+            }
+            #result{
+                margin-top:50px;
+            }
+            p.description{
+              margin-left: 10px;
+
+            }
+            img{
+                width:50px;
+            }
+            .page{
+                margin-top:50px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <nav class="nav" style="padding-top:20px;">
+                <img src="/static/logo.png" style="width:60px;"/>
+                <div class="input-group input-group-sm" style="width:500px;margin-left:50px;">
+                    <input type="text" id="search-box" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </nav>
+            <div>
+                <h4 id="placeholder"style="margin-top:100px;">검색어를 입력해주세요</h4>
+                <div id="result">
+<!--                     <div class="page">
+
+                        <p class="address">https://stackoverflow.com/questions/29955500/code-not-working-in-command-line-for-visual-studio-code-on-osx-mac</p>
+                        <h5><a>[VSCode] bash: code: command not found - 항상 초심으로</a></h5>
+                        <div style="display: flex;">
+                        <img src="https://movie-phinf.pstatic.net/20200805_234/1596591608915HqeqM_JPEG/movie_image.jpg?type=f64_91"/>
+                        <p class="description">
+                            [NativeScript][VSCode] bash: code: command not found. GsBOB. 2018. 5. 24. 16:42 댓글수0 공감수4. visual studio code를 설치한 상태에서, 폴더 불러오기를 ...
+                        </p>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <script>
+            $("#search-box").keydown(function(key) {
+                if (key.keyCode == 13) {
+                    var text = $("#search-box").val();
+                    $.post( "/search",{data:text}, function(res) {
+                        console.log(res);
+                        $("#placeholder").css("display","none");
+                        $( "#result" ).html("");
+                        for (var data of res){
+                            var htmltxt = '<div class="page">';
+                                htmltxt +='<p class="address">'+data.link+'</p>';
+                                htmltxt +='<h5><a href="'+data.link+'" target="_blank">'+data.title+'</a></h5>';
+                                htmltxt += '<div style="display: flex;">';
+                                htmltxt += '<img src="'+data.image+'"/>';
+                                htmltxt +='<p class="description">'+data.story+'</p>';
+                                htmltxt += '</div>';
+                            $( "#result" ).append(htmltxt);
+                        }
+                    });
+                }
+            });
+
+        </script>
+    </body>
+</html>
