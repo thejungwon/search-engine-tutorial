@@ -34,13 +34,16 @@ def get_data(keyword):
     movie_ids = []
     for data in res['hits']['hits']:
         movie_ids.append(data["_id"])
-    sql = "SELECT * FROM movie WHERE id IN {}".format(tuple(movie_ids))
+
+    sql = "SELECT * FROM movie WHERE id IN {} ORDER BY FIELD (id, {})".format(tuple(movie_ids),','.join(movie_ids))
+
     mycursor = mydb.cursor(dictionary=True)
     mycursor.execute(sql)
 
     query_result = []
     myresult = mycursor.fetchall()
     for result in myresult:
+        print(result['id'])
         page = {
             "link":result["link"],
             "image":result["image"],
