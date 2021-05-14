@@ -12,38 +12,40 @@ app = Flask(__name__, static_url_path='/static',
             static_folder='static')
 
 
-try:
-    es.transport.close()
-except:
-    pass
-es = Elasticsearch()
+
 
 HOST = "localhost"
 USER = "root"
 PASSWORD = "123456789"
-mydb = mysql.connector.connect(
-  host=HOST,
-  user=USER,
-  password=PASSWORD,
-  database="movie_db"
-)
+
 
 
 def get_data(keyword):
+    try:
+        es.transport.close()
+    except:
+        pass
+    es = Elasticsearch()
+    mydb = mysql.connector.connect(
+      host=HOST,
+      user=USER,
+      password=PASSWORD,
+      database="movie_db"
+    )
+    mycursor = mydb.cursor(dictionary=True)
+    
     res = es.search(index=INDEX_NAME, q=keyword)
     movie_ids = []
     for data in res['hits']['hits']:
         movie_ids.append(data["_id"])
-
+    
     sql = "SELECT * FROM movie WHERE id IN {} ORDER BY FIELD (id, {})".format(tuple(movie_ids),','.join(movie_ids))
-
-    mycursor = mydb.cursor(dictionary=True)
+    
     mycursor.execute(sql)
 
     query_result = []
     myresult = mycursor.fetchall()
     for result in myresult:
-        print(result['id'])
         page = {
             "link":result["link"],
             "image":result["image"],
@@ -51,6 +53,9 @@ def get_data(keyword):
             "story":result["story"],
         }
         query_result.append(page)
+    es.close()
+    mycursor.close()
+    mydb.close()
     return query_result
 
 
