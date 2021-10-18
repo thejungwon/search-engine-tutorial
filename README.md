@@ -34,6 +34,7 @@ Reload privilege tables now? (Press y|Y for Yes, any other key for No) : y
 
 2. elasticsearch
 ```
+apt-get update && apt-get install -y gnupg2
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
 apt-get install apt-transport-https
 echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | tee /etc/apt/sources.list.d/elastic-7.x.list

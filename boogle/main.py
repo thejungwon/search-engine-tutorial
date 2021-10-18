@@ -16,7 +16,7 @@ app = Flask(__name__, static_url_path='/static',
 
 HOST = "localhost"
 USER = "root"
-PASSWORD = "123456789"
+PASSWORD = "Boost111@"
 
 
 
