@@ -17,7 +17,7 @@ Press y|Y for Yes, any other key for No: y
 Please enter 0 = LOW, 1 = MEDIUM and 2 = STRONG: 0
 ...
 New password: 123456789
-Re-enter new password: 123456789
+Re-enter new password: Boost111@
 ...
 
 Do you wish to continue with the password provided?(Press y|Y for Yes, any other key for No) : y
