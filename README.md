@@ -1,8 +1,8 @@
 # search-engine-tutorial
 
-## installation
+## Installation
 
-1. mysql
+### 1. MySQL
 ```
 apt-get install mysql-server -y
 service mysql restart
@@ -16,7 +16,7 @@ Press y|Y for Yes, any other key for No: y
 ...
 Please enter 0 = LOW, 1 = MEDIUM and 2 = STRONG: 0
 ...
-New password: 123456789
+New password: Boost111@
 Re-enter new password: Boost111@
 ...
 
@@ -32,7 +32,7 @@ Reload privilege tables now? (Press y|Y for Yes, any other key for No) : y
 ```
 
 
-2. elasticsearch
+### 2. Elasticsearch
 ```
 apt-get update && apt-get install -y gnupg2
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
