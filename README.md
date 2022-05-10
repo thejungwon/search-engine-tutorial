@@ -1,13 +1,19 @@
-# search-engine-tutorial
+# Search Engine Tutorial
+
+## Slide
+
+- [Elasticsearch 101](elasticsearch101.pdf)
 
 ## Installation
 
 ### 1. MySQL
+
 ```
 apt-get install mysql-server -y
 service mysql restart
 mysql_secure_installation
 ```
+
 ```
 root@88f2909b2200:~# mysql_secure_installation
 
@@ -31,8 +37,8 @@ Remove test database and access to it? (Press y|Y for Yes, any other key for No)
 Reload privilege tables now? (Press y|Y for Yes, any other key for No) : y
 ```
 
-
 ### 2. Elasticsearch
+
 ```
 apt-get update && apt-get install -y gnupg2
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
